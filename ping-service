@@ -1,0 +1,19 @@
+#!/bin/bash
+# Test service
+# this was on the demandbase service, and you'd need the APIKEY and the Proxy, if applicable. But it's an example.
+
+echo "Testing Demandbase Service"
+
+x=$(curl -sS --max-time 20 -w "%{http_code}\n" -o NUL --proxy ${PROXY} http://api.demandbase.com/api/v2/ip.json?key=${APIKEY})
+
+echo "Response code:"
+echo $x
+
+if [ $x = "200" ];then
+      echo "DemandBase Service is up"
+   else
+      echo "ERROR: DemandBase Service is DOWN"
+      exit 1
+fi
+
+echo "Finishing test"
